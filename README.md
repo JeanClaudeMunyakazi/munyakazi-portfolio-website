@@ -43,7 +43,7 @@ munyakazi-portfolio-website/
 │   └── index.html
 └── it-operations-notes/
     └── index.html
-```text
+
 
 # Content Note
 The M365 page presents downloadable PDF runbooks. The PDFs are maintained as portfolio content and are not included in this source-code repository.
