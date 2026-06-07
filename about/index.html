@@ -1,1 +1,579 @@
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&amp;display=swap" rel="stylesheet">
+<style>
+#ab * { box-sizing: border-box; margin: 0; padding: 0; }
+#ab {
+  font-family: 'DM Sans', Arial, sans-serif;
+  color: #CBD5E1; line-height: 1.6; width: 100%;
+  --cyan: #00D4FF;
+  --cyan-dim: rgba(0,212,255,0.10);
+  --cyan-border: rgba(0,212,255,0.22);
+  --dark: #070D14;
+  --dark2: #0B1520;
+  --light-bg: #F0F4F8;
+  --text: #1E293B;
+}
+
+/* ── HERO ─────────────────────────────────────────── */
+#ab .ab-hero {
+  background: var(--dark);
+  background-image:
+    radial-gradient(ellipse 60% 70% at 95% 30%, rgba(0,212,255,0.09) 0%, transparent 55%),
+    radial-gradient(ellipse 35% 45% at 0% 90%, rgba(0,180,220,0.06) 0%, transparent 50%);
+  padding: 72px 52px 64px;
+  position: relative; overflow: hidden;
+  border-left: 4px solid var(--cyan);
+  display: flex; align-items: center; gap: 52px; flex-wrap: wrap;
+}
+#ab .ab-hero-dots {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: radial-gradient(circle, rgba(0,212,255,0.06) 1px, transparent 1px);
+  background-size: 32px 32px; pointer-events: none;
+}
+#ab .ab-watermark {
+  position: absolute; right: -10px; bottom: -20px;
+  font-family: 'Syne', sans-serif; font-size: 200px; font-weight: 800;
+  color: rgba(0,212,255,0.022); line-height: 1;
+  pointer-events: none; user-select: none; letter-spacing: -8px;
+}
+#ab .ab-photo { position: relative; z-index: 2; flex-shrink: 0; }
+#ab .ab-photo img {
+  width: 140px; height: 140px; border-radius: 50%;
+  object-fit: cover; object-position: top center;
+  border: 2px solid rgba(0,212,255,0.4);
+  box-shadow: 0 0 0 6px rgba(0,212,255,0.06), 0 16px 40px rgba(0,0,0,0.5);
+  display: block;
+}
+#ab .ab-photo-ring {
+  position: absolute; inset: -8px; border-radius: 50%;
+  border: 1px dashed rgba(0,212,255,0.2);
+}
+#ab .ab-hero-text { position: relative; z-index: 2; flex: 1; min-width: 260px; }
+#ab .ab-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+#ab .ab-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: 'Syne', sans-serif; font-size: 9.5px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; padding: 5px 13px; border-radius: 3px;
+}
+#ab .ab-badge-p { background: var(--cyan-dim); border: 1px solid var(--cyan-border); color: var(--cyan); }
+#ab .ab-badge-s { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.4); }
+#ab .ab-dot { width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; display: inline-block; animation: ab-blink 2s infinite; }
+@keyframes ab-blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+#ab .ab-hero h1 {
+  font-family: 'Syne', sans-serif; font-size: clamp(30px,4.5vw,54px); font-weight: 800;
+  color: #fff; line-height: 1.03; margin-bottom: 10px; letter-spacing: -1px;
+}
+#ab .ab-hero h1 .outline { color: transparent; -webkit-text-stroke: 1px rgba(0,212,255,0.3); }
+#ab .ab-sub {
+  font-size: 14.5px; color: rgba(203,213,225,0.55); font-style: italic; font-weight: 300;
+  margin-bottom: 28px; max-width: 480px; line-height: 1.75;
+  border-left: 2px solid var(--cyan-border); padding-left: 14px;
+}
+#ab .ab-stats { display: flex; flex-wrap: wrap; gap: 0; }
+#ab .ab-stat { padding-right: 24px; margin-right: 24px; border-right: 1px solid rgba(255,255,255,0.07); }
+#ab .ab-stat:last-child { border-right: none; }
+#ab .ab-stat-n { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; color: var(--cyan); line-height: 1; }
+#ab .ab-stat-l { font-size: 10px; color: rgba(203,213,225,0.4); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px; }
+
+/* ── SECTION SHARED ───────────────────────────────── */
+#ab .ab-ey {
+  font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700;
+  color: var(--cyan); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px;
+}
+#ab .ab-ey-dark {
+  font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700;
+  color: #0891B2; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px;
+}
+#ab .ab-h2-light {
+  font-family: 'Syne', sans-serif; font-size: clamp(22px,3vw,28px); font-weight: 800;
+  color: #fff; margin-bottom: 32px;
+}
+#ab .ab-h2-dark {
+  font-family: 'Syne', sans-serif; font-size: clamp(22px,3vw,28px); font-weight: 800;
+  color: var(--text); margin-bottom: 32px;
+}
+
+/* ── JOURNEY TIMELINE ─────────────────────────────── */
+#ab .ab-journey {
+  background: var(--light-bg); padding: 60px 52px;
+  border-bottom: 1px solid #E2E8F0;
+}
+#ab .ab-tl { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; position: relative; }
+#ab .ab-tl::before {
+  content: ''; position: absolute;
+  top: 20px; left: calc(16.66% + 10px); right: calc(16.66% + 10px);
+  height: 1px; background: linear-gradient(90deg, #0891B2, #00D4FF, #0891B2); opacity: 0.3;
+}
+#ab .ab-tl-step { padding: 0 28px 0 0; }
+#ab .ab-tl-step:last-child { padding-right: 0; }
+#ab .ab-tl-dot-row { display: flex; align-items: center; margin-bottom: 16px; }
+#ab .ab-tl-dot {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  background: #fff; border: 2px solid var(--dc); z-index: 1;
+  display: flex; align-items: center; justify-content: center; font-size: 13px;
+  box-shadow: 0 0 0 4px rgba(8,145,178,0.08);
+}
+#ab .ab-tl-line { flex: 1; height: 1px; background: #E2E8F0; margin-left: 10px; }
+#ab .ab-tl-step:last-child .ab-tl-line { display: none; }
+#ab .ab-tl-period {
+  font-family: 'Syne', sans-serif; font-size: 9.5px; font-weight: 700;
+  color: var(--dc); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px;
+}
+#ab .ab-tl-country {
+  font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800;
+  color: var(--text); margin-bottom: 5px; line-height: 1.2;
+}
+#ab .ab-tl-role { font-size: 11.5px; font-weight: 500; color: #475569; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+#ab .ab-tl-desc { font-size: 12.5px; color: #64748B; line-height: 1.6; }
+#ab .ab-tl-items { list-style: none; margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+#ab .ab-tl-items li { font-size: 12px; color: #475569; display: flex; align-items: flex-start; gap: 7px; }
+#ab .ab-tl-items li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: #94A3B8; flex-shrink: 0; margin-top: 6px; }
+
+/* ── SKILLS ───────────────────────────────────────── */
+#ab .ab-skills {
+  background: var(--dark2); padding: 64px 52px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+#ab .ab-skills-inner { max-width: 980px; margin: 0 auto; }
+#ab .ab-skills-sub { font-size: 13.5px; color: rgba(203,213,225,0.45); margin-bottom: 36px; max-width: 500px; line-height: 1.6; }
+#ab .ab-sk-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+#ab .ab-sk {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-top: 2px solid var(--sc);
+  border-radius: 3px; padding: 18px 16px;
+}
+#ab .ab-sk-icon { font-size: 18px; margin-bottom: 8px; }
+#ab .ab-sk-name { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+#ab .ab-sk-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+#ab .ab-sk-tag {
+  font-size: 9.5px; color: var(--sc);
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+  padding: 2px 7px; border-radius: 2px;
+  font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: 0.3px;
+}
+
+/* ── EXPERIENCE ───────────────────────────────────── */
+#ab .ab-exp {
+  background: var(--light-bg); padding: 64px 52px;
+  border-top: 1px solid #E2E8F0;
+}
+#ab .ab-exp-inner { max-width: 820px; }
+#ab .ab-exp-list { display: flex; flex-direction: column; gap: 0; }
+#ab .ab-exp-item { display: flex; gap: 24px; padding-bottom: 32px; position: relative; }
+#ab .ab-exp-item::before {
+  content: ''; position: absolute; left: 19px; top: 42px; bottom: 0; width: 1px;
+  background: linear-gradient(to bottom, #CBD5E1, transparent);
+}
+#ab .ab-exp-item:last-child::before { display: none; }
+#ab .ab-exp-left { flex-shrink: 0; }
+#ab .ab-exp-dot {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: #fff; border: 2px solid var(--ec);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; position: relative; z-index: 1;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+#ab .ab-exp-right { flex: 1; padding-top: 6px; }
+#ab .ab-exp-period {
+  font-family: 'Syne', sans-serif; font-size: 9.5px; font-weight: 700;
+  color: var(--ec); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 3px;
+}
+#ab .ab-exp-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 2px; }
+#ab .ab-exp-company { font-size: 13px; color: #64748B; margin-bottom: 10px; font-style: italic; }
+#ab .ab-exp-desc { font-size: 12.5px; color: #64748B; line-height: 1.65; }
+#ab .ab-exp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+#ab .ab-exp-tag {
+  font-size: 10px; color: var(--ec);
+  background: rgba(var(--ec-rgb),0.08); border: 1px solid rgba(var(--ec-rgb),0.18);
+  padding: 3px 8px; border-radius: 2px;
+  font-family: 'Syne', sans-serif; font-weight: 700;
+}
+
+/* ── PERSONAL ─────────────────────────────────────── */
+#ab .ab-personal {
+  background:
+    radial-gradient(circle at 15% 50%, rgba(0,212,255,0.07), transparent 25%),
+    radial-gradient(circle at 85% 50%, rgba(0,212,255,0.05), transparent 28%),
+    var(--dark);
+  padding: 42px 52px;
+  border-top: 1px solid rgba(0,212,255,0.16);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+#ab .ab-personal-item {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(0,212,255,0.10);
+  border-radius: 10px;
+  padding: 24px 22px;
+  box-shadow: inset 0 0 24px rgba(0,212,255,0.03);
+  transition: transform .2s, border-color .2s, box-shadow .2s;
+}
+
+#ab .ab-personal-item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0,212,255,0.28);
+  box-shadow: 0 12px 34px rgba(0,212,255,0.08);
+}
+
+#ab .ab-p-icon {
+  font-size: 24px;
+  margin-bottom: 14px;
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.18);
+}
+
+#ab .ab-p-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+
+#ab .ab-p-desc {
+  font-size: 12px;
+  color: rgba(203,213,225,0.52);
+  line-height: 1.65;
+}
+
+#ab .ab-p-div {
+  display: none;
+}
+
+/* ── CTA ──────────────────────────────────────────── */
+#ab .ab-cta {
+  background: var(--light-bg); border-top: 1px solid #E2E8F0;
+  padding: 56px 40px; text-align: center;
+}
+#ab .ab-cta-inner { max-width: 500px; margin: 0 auto; }
+#ab .ab-cta h2 { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+#ab .ab-cta p { font-size: 14px; color: #64748B; margin-bottom: 28px; line-height: 1.65; }
+#ab .ab-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+#ab .ab-btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px;
+  border-radius: 3px; font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px; text-decoration: none !important;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+#ab .ab-btn:hover { transform: translateY(-2px); }
+#ab .ab-btn-p { background: #0B1520; color: #fff !important; }
+#ab .ab-btn-p:hover { box-shadow: 0 6px 20px rgba(11,21,32,0.25); }
+#ab .ab-btn-s { background: #fff; color: var(--text) !important; border: 1px solid #CBD5E1; }
+
+/* ── RESPONSIVE ───────────────────────────────────── */
+@media (max-width: 900px) {
+  #ab .ab-tl { grid-template-columns: 1fr; gap: 28px; }
+  #ab .ab-tl::before { display: none; }
+  #ab .ab-tl-step { padding-right: 0; }
+  #ab .ab-tl-line { display: none; }
+  #ab .ab-sk-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 650px) {
+  #ab .ab-hero { padding: 52px 20px 48px; flex-direction: column; gap: 28px; }
+  #ab .ab-journey, #ab .ab-skills, #ab .ab-exp, #ab .ab-personal { padding-left: 20px; padding-right: 20px; }
+  #ab .ab-p-div { display: none; }
+}
+#ab {
+  margin-top: 20px;
+}
+
+#ab .ab-hero {
+  border-top: 1px solid rgba(0,212,255,0.25);
+  box-shadow: 0 0 40px rgba(0,212,255,0.08);
+}
+
+#ab .ab-cta {
+  margin-bottom: 24px;
+}
+#ab .ab-skills {
+  background: var(--dark2); padding: 64px 52px;
+  border-top: 1px solid rgba(0,212,255,0.12);
+}
+/* ── MOBILE PERSONAL SECTION ─────────────────────── */
+@media (max-width: 650px) {
+
+  #ab .ab-personal {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 36px 20px;
+  }
+
+  #ab .ab-personal-item {
+    width: 88%;
+    padding: 22px 20px;
+  }
+
+  #ab .ab-personal-item:nth-child(1) {
+    align-self: flex-start;
+  }
+
+  #ab .ab-personal-item:nth-child(3) {
+    align-self: center;
+  }
+
+  #ab .ab-personal-item:nth-child(5) {
+    align-self: flex-end;
+  }
+
+  #ab .ab-p-div {
+    display: none;
+  }
+
+}
+</style>
+
+<div id="ab">
+
+<!-- HERO -->
+<div class="ab-hero">
+  <div class="ab-hero-dots"></div>
+  <div class="ab-watermark">JCM</div>
+  <div class="ab-photo">
+    <img src="https://munyakazi.org/wp-content/uploads/2025/11/PassPhoto.jpg" alt="Jean-Claude Munyakazi">
+    <div class="ab-photo-ring"></div>
+  </div>
+  <div class="ab-hero-text">
+    <div class="ab-badges">
+      <span class="ab-badge ab-badge-p"><span class="ab-dot"></span>IT System Administrator &nbsp;&mdash;&nbsp; Berlin</span>
+      <span class="ab-badge ab-badge-s">CCNA &middot; M365 &middot; Linux</span>
+    </div>
+    <h1>Jean-Claude<br><span class="outline">Munyakazi</span></h1>
+    <p class="ab-sub">From Burundi and Rwanda to South Africa to Germany, 10+ years of building, securing, and managing IT infrastructure across two continents.</p>
+    <div class="ab-stats">
+      <div class="ab-stat"><div class="ab-stat-n">10+</div><div class="ab-stat-l">Years in IT</div></div>
+      <div class="ab-stat"><div class="ab-stat-n">3</div><div class="ab-stat-l">Countries</div></div>
+      <div class="ab-stat"><div class="ab-stat-n">CCNA</div><div class="ab-stat-l">Certified</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- JOURNEY -->
+<div class="ab-journey">
+  <div class="ab-ey-dark">A Three-Country Journey</div>
+  <h2 class="ab-h2-dark">From Burundi to Berlin</h2>
+  <div class="ab-tl">
+    <div class="ab-tl-step" style="--dc:#CA5010;">
+      <div class="ab-tl-dot-row"><div class="ab-tl-dot">🇧🇮</div><div class="ab-tl-line"></div></div>
+      <div class="ab-tl-period">2006 – 2010 &mdash; Foundation</div>
+      <div class="ab-tl-country">Burundi &amp; Rwanda</div>
+      <div class="ab-tl-role">IT Technician</div>
+      <div class="ab-tl-desc">Born and raised in Burundi with Rwandan roots. Early passion for taking apart devices and finding creative technical solutions with limited resources.</div>
+      <ul class="ab-tl-items">
+        <li>Desktop, laptop, and peripheral repair</li>
+        <li>Customer support &amp; troubleshooting</li>
+        <li>First exposure to network infrastructure</li>
+      </ul>
+    </div>
+    <div class="ab-tl-step" style="--dc:#0891B2;">
+      <div class="ab-tl-dot-row"><div class="ab-tl-dot">🇿🇦</div><div class="ab-tl-line"></div></div>
+      <div class="ab-tl-period">2010 – 2014 &mdash; Growth</div>
+      <div class="ab-tl-country">South Africa</div>
+      <div class="ab-tl-role">IT Technician</div>
+      <div class="ab-tl-desc">Moved to Johannesburg seeking greater opportunities. Gained hands-on networking, hardware, and system administration experience in a fast-paced commercial environment.</div>
+      <ul class="ab-tl-items">
+        <li>Routers, switches, firewalls configuration</li>
+        <li>Server and workstation management</li>
+        <li>End-user technical support</li>
+      </ul>
+    </div>
+    <div class="ab-tl-step" style="--dc:#0D7A5F;">
+      <div class="ab-tl-dot-row"><div class="ab-tl-dot">🇩🇪</div><div class="ab-tl-line"></div></div>
+      <div class="ab-tl-period">2016 – Present &mdash; Mastery</div>
+      <div class="ab-tl-country">Germany — Berlin</div>
+      <div class="ab-tl-role">IT System Administrator</div>
+      <div class="ab-tl-desc">Relocated to Berlin and deepened expertise across multiple roles. Earned CCNA, Linux, and M365 certifications. Led M365 migration.</div>
+      <ul class="ab-tl-items">
+        <li>CCNA, Linux, Microsoft 365 certified</li>
+        <li>M365 Administrator & migration</li>
+        <li>Network infrastructure & cybersecurity hardening</li>
+        <li>Self-hosted infrastructure & automation projects</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="ab-skills">
+  <div class="ab-skills-inner">
+    <div class="ab-ey">Technical Expertise</div>
+    <h2 class="ab-h2-light">Skills &amp; Competencies</h2>
+    <p class="ab-skills-sub">A practical toolkit built across 10+ years of real-world IT roles, from cabling to cloud, from repair shops to Microsoft 365 tenants.</p>
+    <div class="ab-sk-grid">
+      <div class="ab-sk" style="--sc:#00D4FF;">
+        <div class="ab-sk-icon">☁️</div>
+        <div class="ab-sk-name">Microsoft 365</div>
+        <div class="ab-sk-tags"><span class="ab-sk-tag">Exchange</span><span class="ab-sk-tag">SharePoint</span><span class="ab-sk-tag">Teams</span><span class="ab-sk-tag">Intune</span><span class="ab-sk-tag">Entra ID</span></div>
+      </div>
+      <div class="ab-sk" style="--sc:#38BDF8;">
+        <div class="ab-sk-icon">🌐</div>
+        <div class="ab-sk-name">Networking</div>
+        <div class="ab-sk-tags"><span class="ab-sk-tag">CCNA</span><span class="ab-sk-tag">TCP/IP</span><span class="ab-sk-tag">VLANs</span><span class="ab-sk-tag">Cisco IOS</span><span class="ab-sk-tag">VPN</span></div>
+      </div>
+      <div class="ab-sk" style="--sc:#F87171;">
+        <div class="ab-sk-icon">🔒</div>
+        <div class="ab-sk-name">Cybersecurity</div>
+        <div class="ab-sk-tags"><span class="ab-sk-tag">Firewalls</span><span class="ab-sk-tag">Hardening</span><span class="ab-sk-tag">ISO 27002</span><span class="ab-sk-tag">Endpoint</span></div>
+      </div>
+      <div class="ab-sk" style="--sc:#34D399;">
+        <div class="ab-sk-icon">🖥️</div>
+        <div class="ab-sk-name">System Admin</div>
+        <div class="ab-sk-tags"><span class="ab-sk-tag">Windows Server</span><span class="ab-sk-tag">Linux</span><span class="ab-sk-tag">Hyper-V</span><span class="ab-sk-tag">Active Directory</span></div>
+      </div>
+      <div class="ab-sk" style="--sc:#A78BFA;">
+        <div class="ab-sk-icon">💾</div>
+        <div class="ab-sk-name">Backup &amp; Recovery</div>
+        <div class="ab-sk-tags"><span class="ab-sk-tag">Veeam</span><span class="ab-sk-tag">DR Planning</span><span class="ab-sk-tag">ACMP</span></div>
+      </div>
+      <div class="ab-sk" style="--sc:#FBBF24;">
+        <div class="ab-sk-icon">⚙️</div>
+        <div class="ab-sk-name">Automation</div>
+        <div class="ab-sk-tags"><span class="ab-sk-tag">PowerShell</span><span class="ab-sk-tag">Power Automate</span><span class="ab-sk-tag">Shell</span></div>
+      </div>
+      <div class="ab-sk" style="--sc:#FB923C;">
+        <div class="ab-sk-icon">🍓</div>
+        <div class="ab-sk-name">Self-Hosted Infra</div>
+        <div class="ab-sk-tags"><span class="ab-sk-tag">Raspberry Pi</span><span class="ab-sk-tag">LAMP</span><span class="ab-sk-tag">Cloudflare</span><span class="ab-sk-tag">WordPress</span></div>
+      </div>
+      <div class="ab-sk" style="--sc:#6EE7B7;">
+        <div class="ab-sk-icon">📊</div>
+        <div class="ab-sk-name">Productivity Suite</div>
+        <div class="ab-sk-tags"><span class="ab-sk-tag">Power BI</span><span class="ab-sk-tag">Forms</span><span class="ab-sk-tag">OneDrive</span><span class="ab-sk-tag">Bookings</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="ab-exp">
+  <div class="ab-ey-dark">Work History</div>
+  <h2 class="ab-h2-dark">Professional Experience</h2>
+  <div class="ab-exp-inner">
+    <div class="ab-exp-list">
+
+      <div class="ab-exp-item" style="--ec:#0891B2; --ec-rgb:8,145,178;">
+        <div class="ab-exp-left"><div class="ab-exp-dot">🏢</div></div>
+        <div class="ab-exp-right">
+          <div class="ab-exp-period">2026 — Present</div>
+          <div class="ab-exp-title">IT System Administrator</div>
+          <div class="ab-exp-company">BB Systems GmbH, Berlin</div>
+          <div class="ab-exp-desc">Administered and supported client IT infrastructures across on-premises, cloud, and hybrid environments. Managed Microsoft 365 migrations, Veeam backup, ACMP client management, and Power Automate automation.</div>
+          <div class="ab-exp-tags"><span class="ab-exp-tag">M365</span><span class="ab-exp-tag">Veeam</span><span class="ab-exp-tag">Hyper-V</span><span class="ab-exp-tag">ACMP</span><span class="ab-exp-tag">Power Automate</span></div>
+        </div>
+      </div>
+
+      <div class="ab-exp-item" style="--ec:#7C3AED; --ec-rgb:124,58,237;">
+        <div class="ab-exp-left"><div class="ab-exp-dot">📚</div></div>
+        <div class="ab-exp-right">
+          <div class="ab-exp-period">2025 — Present</div>
+          <div class="ab-exp-title">Independent IT Systems Administration &amp; Infrastructure Consulting</div>
+          <div class="ab-exp-company">Self-Employed, Berlin</div>
+          <div class="ab-exp-desc"> Providing independent IT systems administration, Microsoft 365 management, and infrastructure consulting services for SMEs and portfolio projects. Designing and maintaining self-hosted infrastructure integrating Microsoft 365, SharePoint, Linux services, networking, and cybersecurity solutions. Supporting technical documentation, automation workflows, and infrastructure optimization. Technical portfolio and project documentation available at munyakazi.org</div>
+          <div class="ab-exp-tags"><span class="ab-exp-tag">Microsoft 365</span><span class="ab-exp-tag">Infrastructure</span><span class="ab-exp-tag">Linux Systems</span><span class="ab-exp-tag">IT Consulting</span><span class="ab-exp-tag">Portfolio</span></div>
+        </div>
+      </div>
+
+      <div class="ab-exp-item" style="--ec:#CA5010; --ec-rgb:202,80,16;">
+        <div class="ab-exp-left"><div class="ab-exp-dot">🕌</div></div>
+        <div class="ab-exp-right">
+          <div class="ab-exp-period">2023 – 2024</div>
+          <div class="ab-exp-title">IT Support Technician</div>
+          <div class="ab-exp-company">Embassy of the Republic of Burundi, Berlin</div>
+          <div class="ab-exp-desc">On-demand technical support ensuring uninterrupted diplomatic IT operations. Led migration from personal email to Microsoft 365 Business Standard, including domain setup, email configuration, and security permissions.</div>
+          <div class="ab-exp-tags"><span class="ab-exp-tag">M365 Migration</span><span class="ab-exp-tag">Exchange</span><span class="ab-exp-tag">Network</span><span class="ab-exp-tag">Staff Training</span></div>
+        </div>
+      </div>
+
+      <div class="ab-exp-item" style="--ec:#D97706; --ec-rgb:217,119,6;">
+        <div class="ab-exp-left"><div class="ab-exp-dot">🏟️</div></div>
+        <div class="ab-exp-right">
+          <div class="ab-exp-period">2022 – 2024</div>
+          <div class="ab-exp-title">Logistician &amp; Operations Associate</div>
+          <div class="ab-exp-company">Aramark Restaurations GmbH, Olympiastadion Berlin</div>
+          <div class="ab-exp-desc">Managed logistics operations, inventory control, and supply chain tasks in a high-paced stadium environment. Operated as a forklift driver, while continuing IT self-learning in parallel.</div>
+          <div class="ab-exp-tags"><span class="ab-exp-tag">Logistics</span><span class="ab-exp-tag">Operations</span><span class="ab-exp-tag">Forklift</span><span class="ab-exp-tag">Inventory</span></div>
+        </div>
+      </div>
+
+      <div class="ab-exp-item" style="--ec:#0D7A5F; --ec-rgb:13,122,95;">
+        <div class="ab-exp-left"><div class="ab-exp-dot">🎵</div></div>
+        <div class="ab-exp-right">
+          <div class="ab-exp-period">2018 – 2022</div>
+          <div class="ab-exp-title">IT Systems Electronic &amp; Network Technician</div>
+          <div class="ab-exp-company">audioone GmbH, Berlin</div>
+          <div class="ab-exp-desc">Installed, configured, and maintained IT infrastructure including servers, networks, and workstations. Fiber optic and Cat cabling installations, cybersecurity implementation, and on-site user support.</div>
+          <div class="ab-exp-tags"><span class="ab-exp-tag">Networking</span><span class="ab-exp-tag">Cabling</span><span class="ab-exp-tag">Servers</span><span class="ab-exp-tag">Security</span></div>
+        </div>
+      </div>
+
+      <div class="ab-exp-item" style="--ec:#2563EB; --ec-rgb:37,99,235;">
+        <div class="ab-exp-left"><div class="ab-exp-dot">🌍</div></div>
+        <div class="ab-exp-right">
+          <div class="ab-exp-period">2013 – 2014</div>
+          <div class="ab-exp-title">IT Technician</div>
+          <div class="ab-exp-company">Speednet LTD, Johannesburg, South Africa</div>
+          <div class="ab-exp-desc">Managed and maintained office IT infrastructure including PCs, servers, and mobile devices. Configured networking equipment and provided end-user technical support.</div>
+          <div class="ab-exp-tags"><span class="ab-exp-tag">Hardware</span><span class="ab-exp-tag">Networking</span><span class="ab-exp-tag">IT Support</span></div>
+        </div>
+      </div>
+
+      <div class="ab-exp-item" style="--ec:#64748B; --ec-rgb:100,116,139;">
+        <div class="ab-exp-left"><div class="ab-exp-dot">💻</div></div>
+        <div class="ab-exp-right">
+          <div class="ab-exp-period">2006 – 2009</div>
+          <div class="ab-exp-title">IT Technician</div>
+          <div class="ab-exp-company">Mas Internet, Bujumbura, Burundi</div>
+          <div class="ab-exp-desc">Installed, repaired, and maintained desktops, laptops, and peripherals. Provided customer support and monitored IT systems for smooth operations.</div>
+          <div class="ab-exp-tags"><span class="ab-exp-tag">Repair</span><span class="ab-exp-tag">Support</span><span class="ab-exp-tag">Systems</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- PERSONAL -->
+<div class="ab-personal">
+  <div class="ab-personal-item">
+    <div class="ab-p-icon">🚴</div>
+    <div class="ab-p-title">Cycling</div>
+    <div class="ab-p-desc">What started as transport became a lifestyle. Long-distance cycling around Berlin and beyond, a counterbalance to screen time.</div>
+  </div>
+  <div class="ab-p-div"></div>
+  <div class="ab-personal-item">
+    <div class="ab-p-icon">⚽</div>
+    <div class="ab-p-title">Football</div>
+    <div class="ab-p-desc">A lifelong passion that crosses borders and languages, a way to connect with community wherever the journey has taken me.</div>
+  </div>
+  <div class="ab-p-div"></div>
+  <div class="ab-personal-item">
+    <div class="ab-p-icon">🎵</div>
+    <div class="ab-p-title">Music</div>
+    <div class="ab-p-desc">A constant companion, in the commute, during late-night troubleshooting sessions, and everywhere in between.</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="ab-cta">
+  <div class="ab-cta-inner">
+    <h2>See the Work</h2>
+    <p>The portfolio and blog are where the journey becomes tangible, real projects, real lab work, real documentation.</p>
+    <div class="ab-cta-btns">
+      <a href="https://munyakazi.org/system-network-projects/" class="ab-btn ab-btn-p">&#8594; View Portfolio</a>
+      <a href="https://munyakazi.org/professional-blog/" class="ab-btn ab-btn-s">Read the Blog</a>
+    </div>
+  </div>
+</div>
+
+</div>
 
