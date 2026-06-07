@@ -1,1 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Operations Notes - Munyakazi Professional Blog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&amp;display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1B3A6B;
+  --blue: #0078D4;
+  --teal: #038387;
+  --green: #107C10;
+  --red: #A4262C;
+  --amber: #E8A838;
+  --slate: #415A77;
+  --dark: #0D1F3C;
+  --ink: #111827;
+  --light: #F4F7FB;
+  --white: #FFFFFF;
+  --gray: #E8EDF5;
+  --line: #D8E2EF;
+  --txt: #1E293B;
+  --stxt: #64748B;
+  --soft-teal: #E5F4F4;
+  --soft-blue: #EBF5FB;
+  --soft-amber: #FFF6E0;
+  --soft-red: #FBEBEB;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--txt);
+  line-height: 1.6;
+}
+
+a { color: inherit; }
+
+code {
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.94em;
+}
+
+.hero {
+  background: var(--dark);
+  background-image:
+    linear-gradient(135deg, rgba(0,120,212,0.22) 0%, transparent 44%),
+    radial-gradient(ellipse 80% 62% at 76% 46%, rgba(16,124,16,0.16) 0%, transparent 62%),
+    radial-gradient(ellipse 58% 82% at 14% 86%, rgba(232,168,56,0.12) 0%, transparent 62%);
+  padding: 68px 40px 58px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(to bottom, var(--green), var(--teal), var(--amber));
+}
+
+.hero::after {
+  content: 'OPS';
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(120px, 22vw, 230px);
+  font-weight: 800;
+  color: rgba(255,255,255,0.04);
+  letter-spacing: -8px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(221,235,249,0.68);
+  font-size: 12px;
+  margin-bottom: 22px;
+}
+
+.breadcrumb a {
+  color: #FFD98B;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(3,131,135,0.18);
+  border: 1px solid rgba(94,231,236,0.32);
+  color: #5EE7EC;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #5EE7EC;
+}
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(34px, 5vw, 58px);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.06;
+  margin-bottom: 12px;
+  max-width: 760px;
+}
+
+.hero h1 span {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.36);
+}
+
+.hero-sub {
+  font-size: 16px;
+  color: rgba(221,235,249,0.86);
+  font-style: italic;
+  margin-bottom: 30px;
+  max-width: 720px;
+  font-weight: 300;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.stat { text-align: left; }
+
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 27px;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: rgba(221,235,249,0.66);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+
+.stat-divider {
+  width: 1px;
+  background: rgba(255,255,255,0.15);
+  align-self: stretch;
+}
+
+.intro-section {
+  background: var(--light);
+  border-top: 3px solid var(--teal);
+  padding: 46px 40px;
+}
+
+.intro-grid {
+  max-width: 1060px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.panel {
+  background: var(--white);
+  border: 1px solid var(--gray);
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(27,58,107,0.07);
+  padding: 26px 24px;
+}
+
+.eyebrow {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+
+.panel h2,
+.section-head h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.panel p {
+  color: var(--stxt);
+  font-size: 14px;
+  line-height: 1.72;
+}
+
+.signal-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.signal {
+  border: 1px solid var(--gray);
+  border-radius: 8px;
+  padding: 13px 14px;
+  min-height: 90px;
+}
+
+.signal strong {
+  display: block;
+  font-family: 'Syne', sans-serif;
+  color: var(--navy);
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.signal span {
+  display: block;
+  color: var(--stxt);
+  font-size: 12.5px;
+  line-height: 1.48;
+}
+
+.category-strip {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 34px 40px 0;
+}
+
+.category-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  background: var(--white);
+}
+
+.chip::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--teal);
+}
+
+.chip:nth-child(2)::before { background: var(--blue); }
+.chip:nth-child(3)::before { background: var(--green); }
+.chip:nth-child(4)::before { background: var(--amber); }
+.chip:nth-child(5)::before { background: var(--red); }
+
+.notes-section {
+  padding: 38px 40px 58px;
+}
+
+.section-head {
+  max-width: 1060px;
+  margin: 0 auto 22px;
+}
+
+.section-head .eyebrow { color: var(--green); }
+
+.section-head p {
+  color: var(--stxt);
+  font-size: 14px;
+  max-width: 660px;
+}
+
+.notes-grid {
+  max-width: 1060px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.note-card {
+  background: var(--white);
+  border: 1.5px solid var(--gray);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(27,58,107,0.07);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.note-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(27,58,107,0.13);
+}
+
+.note-header {
+  background: linear-gradient(135deg, #0D1F3C 0%, #038387 100%);
+  color: var(--white);
+  padding: 18px 20px 16px;
+}
+
+.note-card[data-tone="amber"] .note-header {
+  background: linear-gradient(135deg, #1B3A6B 0%, #B76E2D 100%);
+}
+
+.note-card[data-tone="blue"] .note-header {
+  background: linear-gradient(135deg, #0D2A55 0%, #0078D4 100%);
+}
+
+.note-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.78);
+  margin-bottom: 8px;
+}
+
+.note-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 7px;
+}
+
+.note-sub {
+  color: rgba(255,255,255,0.74);
+  font-size: 12.5px;
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+.note-body {
+  padding: 17px 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+.note-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.note-points li {
+  color: var(--stxt);
+  font-size: 12.7px;
+  line-height: 1.45;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.note-points li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  margin-top: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  flex: 0 0 auto;
+}
+
+.note-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding-top: 12px;
+  border-top: 1px solid var(--gray);
+  margin-top: auto;
+}
+
+.tag {
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: 999px;
+  color: var(--navy);
+  background: var(--soft-blue);
+}
+
+.tag.green { color: #0E5E11; background: #E8F5E9; }
+.tag.amber { color: #8A6000; background: var(--soft-amber); }
+.tag.red { color: #8A1D22; background: var(--soft-red); }
+.tag.teal { color: #025B5E; background: var(--soft-teal); }
+
+.note-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 2px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  color: #025B5E;
+  background: var(--soft-teal);
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.note-link:hover {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.coming {
+  opacity: 0.78;
+}
+
+.coming .note-header {
+  background: linear-gradient(135deg, #415A77 0%, #1B3A6B 100%);
+}
+
+.coming .note-link {
+  color: var(--slate);
+  background: var(--gray);
+  pointer-events: none;
+}
+
+.method-section {
+  background: var(--dark);
+  background-image:
+    linear-gradient(135deg, rgba(3,131,135,0.14) 0%, transparent 52%),
+    radial-gradient(ellipse 58% 80% at 88% 50%, rgba(232,168,56,0.1) 0%, transparent 62%);
+  padding: 58px 40px;
+}
+
+.method-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+.method-head {
+  margin-bottom: 28px;
+}
+
+.method-head .eyebrow { color: #5EE7EC; }
+
+.method-head h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.2;
+}
+
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.method-item {
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 10px;
+  padding: 18px 16px;
+}
+
+.method-step {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  color: #FFD98B;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.method-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.method-desc {
+  color: rgba(221,235,249,0.66);
+  font-size: 12.5px;
+  line-height: 1.52;
+}
+
+.cta-section {
+  background: var(--light);
+  border-top: 1px solid var(--gray);
+  padding: 48px 40px;
+  text-align: center;
+}
+
+.cta-inner {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.cta-inner h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+
+.cta-inner p {
+  color: var(--stxt);
+  font-size: 14px;
+  line-height: 1.68;
+  margin-bottom: 22px;
+}
+
+.cta-links {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.cta-btn.primary { background: var(--navy); color: var(--white); }
+.cta-btn.secondary { background: var(--white); color: var(--navy); border: 2px solid var(--navy); }
+
+@media (max-width: 900px) {
+  .intro-grid,
+  .notes-grid,
+  .method-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero,
+  .intro-section,
+  .category-strip,
+  .notes-section,
+  .method-section,
+  .cta-section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .intro-grid,
+  .notes-grid,
+  .method-grid,
+  .signal-list {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stats {
+    gap: 20px;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="breadcrumb"><a href="/professional-blog/">Professional Blog</a> / IT Operations Notes</div>
+    <div class="hero-badge">OPS Notes · Real Fixes & SOPs</div>
+    <h1>IT Operations<br><span>Notes</span></h1>
+    <p class="hero-sub">A growing collection of practical IT field notes: incidents, service recovery steps, troubleshooting decisions, and reusable SOPs from real administration work.</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">OPS</div>
+        <div class="stat-label">Series Code</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num">1</div>
+        <div class="stat-label">Published Note</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num">SOP</div>
+        <div class="stat-label">Documentation Type</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num">Live</div>
+        <div class="stat-label">Operations Focus</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="intro-section">
+  <div class="intro-grid">
+    <div class="panel">
+      <div class="eyebrow">What This Is</div>
+      <h2>Everyday operational work, documented professionally.</h2>
+      <p>This section collects standalone notes from real IT work: when a service breaks, a configuration behaves differently than expected, or a recovery process becomes useful enough to document. The goal is to show how I diagnose issues, restore service, and turn experience into repeatable operating knowledge.</p>
+    </div>
+    <div class="panel">
+      <div class="eyebrow">Scope</div>
+      <h2>Small fixes can still show serious skills.</h2>
+      <p>Not every valuable IT story is a large portfolio project. These notes focus on practical judgment: reading symptoms, checking logs, isolating layers, choosing a safe fix, validating recovery, and recording what should be monitored next time.</p>
+    </div>
+  </div>
+</section>
+
+<div class="category-strip">
+  <div class="category-row">
+    <span class="chip">Incident Response</span>
+    <span class="chip">Linux & Web Hosting</span>
+    <span class="chip">Service Recovery</span>
+    <span class="chip">Cloudflare & DNS</span>
+    <span class="chip">Troubleshooting SOPs</span>
+  </div>
+</div>
+
+<section class="notes-section">
+  <div class="section-head">
+    <div class="eyebrow">Published Notes</div>
+    <h2>Operations Library</h2>
+    <p>Each note is written as a practical recovery record: what failed, how it was checked, what restored service, and what should be improved for the next incident.</p>
+  </div>
+
+  <div class="notes-grid">
+    <article class="note-card">
+      <div class="note-header">
+        <div class="note-num">OPS-001 · Incident SOP</div>
+        <div class="note-title">Apache + Cloudflare Tunnel Downtime SOP</div>
+        <div class="note-sub">Restoring website availability when the Apache and Cloudflare Tunnel path stops serving traffic.</div>
+      </div>
+      <div class="note-body">
+        <ul class="note-points">
+          <li>Checks the service path from browser, Cloudflare, tunnel, and Apache layers.</li>
+          <li>Documents recovery commands, restart order, and validation steps.</li>
+          <li>Turns a real downtime fix into a reusable operations procedure.</li>
+        </ul>
+        <div class="note-meta">
+          <span class="tag red">Downtime</span>
+          <span class="tag teal">Apache</span>
+          <span class="tag">Cloudflare Tunnel</span>
+          <span class="tag green">Linux</span>
+        </div>
+        <a class="note-link" href="https://munyakazi.org/apache-cloudflare-downtime-sop/">Read SOP</a>
+      </div>
+    </article>
+
+    <article class="note-card coming" data-tone="blue">
+      <div class="note-header">
+        <div class="note-num">OPS-002 · Coming Note</div>
+        <div class="note-title">Service Health Check Runbook</div>
+        <div class="note-sub">A reusable checklist for validating web, DNS, tunnel, and host-level availability.</div>
+      </div>
+      <div class="note-body">
+        <ul class="note-points">
+          <li>Standard checks for ports, processes, logs, and endpoint response.</li>
+          <li>Simple decision tree for local service vs. external routing problems.</li>
+          <li>Designed as a reusable first-response checklist.</li>
+        </ul>
+        <div class="note-meta">
+          <span class="tag">Monitoring</span>
+          <span class="tag green">Runbook</span>
+        </div>
+        <span class="note-link">Coming Soon</span>
+      </div>
+    </article>
+
+    <article class="note-card coming" data-tone="amber">
+      <div class="note-header">
+        <div class="note-num">OPS-003 · Coming Note</div>
+        <div class="note-title">DNS & Tunnel Troubleshooting</div>
+        <div class="note-sub">A practical note for separating DNS, proxy, certificate, and origin-server failures.</div>
+      </div>
+      <div class="note-body">
+        <ul class="note-points">
+          <li>Layer-by-layer checks for name resolution and proxy status.</li>
+          <li>Validation path for tunnel service state and origin availability.</li>
+          <li>Clear documentation pattern for future incidents.</li>
+        </ul>
+        <div class="note-meta">
+          <span class="tag amber">DNS</span>
+          <span class="tag teal">Tunnel</span>
+        </div>
+        <span class="note-link">Coming Soon</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="method-section">
+  <div class="method-inner">
+    <div class="method-head">
+      <div class="eyebrow">Documentation Pattern</div>
+      <h2>How each operations note is structured</h2>
+    </div>
+    <div class="method-grid">
+      <div class="method-item">
+        <div class="method-step">01</div>
+        <div class="method-name">Symptom</div>
+        <div class="method-desc">Capture what users or monitoring would actually see: error page, timeout, failed tunnel, or service refusal.</div>
+      </div>
+      <div class="method-item">
+        <div class="method-step">02</div>
+        <div class="method-name">Diagnosis</div>
+        <div class="method-desc">Check each layer in order, from public access through DNS/proxy to host services and logs.</div>
+      </div>
+      <div class="method-item">
+        <div class="method-step">03</div>
+        <div class="method-name">Recovery</div>
+        <div class="method-desc">Document the exact corrective actions, restart sequence, and commands used to restore service.</div>
+      </div>
+      <div class="method-item">
+        <div class="method-step">04</div>
+        <div class="method-name">Prevention</div>
+        <div class="method-desc">Record what should be monitored, automated, backed up, or improved to reduce repeat incidents.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>More Practical Notes Coming</h2>
+    <p>This operations library will grow alongside real troubleshooting work, with each note written to be useful, repeatable, and honest about what happened.</p>
+    <div class="cta-links">
+      <a class="cta-btn primary" href="/professional-blog/">Back to Professional Blog</a>
+      <a class="cta-btn secondary" href="/contact/">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
 
