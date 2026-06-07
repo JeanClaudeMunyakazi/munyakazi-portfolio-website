@@ -50,7 +50,9 @@ munyakazi-portfolio-website/
 The source code was originally created for Elementor HTML widgets and adapted to run independently as a GitHub Pages demo.
 
 ## Author
+
 **Jean Claude Munyakazi**
+
 IT-System Administrator
 
 [Portfolio](https://munyakazi.org)
