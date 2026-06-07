@@ -43,20 +43,15 @@ munyakazi-portfolio-website/
 │   └── index.html
 └── it-operations-notes/
     └── index.html
+```
 
 
-# Content Note
-The M365 page presents downloadable PDF runbooks. The PDFs are maintained as portfolio content and are not included in this source-code repository.
+## Implementation Note
+The source code was originally created for Elementor HTML widgets and adapted to run independently as a GitHub Pages demo.
 
-The IT Operations Notes page acts as an overview and links to individual technical articles published on the live website.
-
-# Implementation Note
-The original code was created for Elementor HTML widgets. The GitHub Pages versions may include a minimal standalone HTML structure so they can run independently from WordPress.
-
-# Author
-Jean Claude Munyakazi
-
-IT System Administrator focused on IT operations, networking, Microsoft 365, Linux, automation, cybersecurity, and cloud technologies.
+## Author
+**Jean Claude Munyakazi**
+IT-System Administrator
 
 [Portfolio](https://munyakazi.org)
 [GitHub](https://github.com/JeanClaudeMunyakazi)
