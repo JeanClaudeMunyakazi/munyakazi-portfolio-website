@@ -1,1 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M365 Administration Runbook Series — Magister Operis Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&amp;display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:    #1B3A6B;
+  --blue:    #0078D4;
+  --teal:    #038387;
+  --purple:  #5C2D91;
+  --red:     #A4262C;
+  --green:   #107C10;
+  --orange:  #CA5010;
+  --dark:    #0D1F3C;
+  --light:   #F4F7FB;
+  --white:   #FFFFFF;
+  --gray:    #E8EDF5;
+  --txt:     #1E293B;
+  --stxt:    #64748B;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--txt);
+  line-height: 1.6;
+}
+
+/* ── HERO ─────────────────────────────────────── */
+.hero {
+  background: var(--dark);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(3,131,135,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 10% 80%, rgba(0,120,212,0.12) 0%, transparent 60%);
+  padding: 72px 40px 64px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 5px;
+  background: linear-gradient(to bottom, var(--teal), var(--blue));
+}
+
+.hero::after {
+  content: 'M365';
+  position: absolute;
+  right: -10px; top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Syne', sans-serif;
+  font-size: 180px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.03);
+  letter-spacing: -8px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(3,131,135,0.2);
+  border: 1px solid rgba(3,131,135,0.4);
+  color: #5EE7EC;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 7px; height: 7px;
+  background: #5EE7EC;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(32px, 5vw, 54px);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 8px;
+  max-width: 700px;
+}
+
+.hero h1 span {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.35);
+}
+
+.hero-sub {
+  font-size: 16px;
+  color: rgba(174,221,255,0.85);
+  font-style: italic;
+  margin-bottom: 32px;
+  max-width: 560px;
+  font-weight: 300;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  text-align: left;
+}
+
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: rgba(174,221,255,0.65);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+
+.stat-divider {
+  width: 1px;
+  background: rgba(255,255,255,0.15);
+  align-self: stretch;
+}
+
+/* ── WHAT THIS IS ──────────────────────────────── */
+.about-section {
+  background: var(--light);
+  border-top: 3px solid var(--teal);
+  padding: 48px 40px;
+}
+
+.about-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 28px;
+}
+
+.about-card {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 24px 22px;
+  border: 1px solid var(--gray);
+  border-top: 3px solid var(--navy);
+  box-shadow: 0 2px 12px rgba(27,58,107,0.07);
+}
+
+.about-card-icon {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.about-card h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.about-card p {
+  font-size: 13.5px;
+  color: var(--stxt);
+  line-height: 1.65;
+}
+
+/* ── SECTION LABEL ─────────────────────────────── */
+.section-label {
+  padding: 40px 40px 0;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.section-label h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 6px;
+}
+
+.section-label h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.section-label p {
+  font-size: 14px;
+  color: var(--stxt);
+  margin-bottom: 0;
+}
+
+/* ── RUNBOOK GRID ──────────────────────────────── */
+.runbook-grid {
+  padding: 28px 40px 60px;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.rb-card {
+  background: var(--white);
+  border-radius: 12px;
+  border: 1.5px solid var(--gray);
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(27,58,107,0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.rb-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(27,58,107,0.14);
+}
+
+.rb-header {
+  padding: 18px 20px 14px;
+  position: relative;
+}
+
+.rb-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin-bottom: 8px;
+  color: var(--white);
+}
+
+.rb-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+
+.rb-subtitle {
+  font-size: 12px;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* colour variants */
+.rb-card[data-color="blue"]    .rb-header { background: linear-gradient(135deg, #1B3A6B 0%, #0078D4 100%); }
+.rb-card[data-color="teal"]    .rb-header { background: linear-gradient(135deg, #025B5E 0%, #038387 100%); }
+.rb-card[data-color="teams"]   .rb-header { background: linear-gradient(135deg, #0D2A55 0%, #106EBE 100%); }
+.rb-card[data-color="purple"]  .rb-header { background: linear-gradient(135deg, #2D0F52 0%, #5C2D91 100%); }
+.rb-card[data-color="red"]     .rb-header { background: linear-gradient(135deg, #4A0808 0%, #A4262C 100%); }
+.rb-card[data-color="green"]   .rb-header { background: linear-gradient(135deg, #052B05 0%, #107C10 100%); }
+
+.rb-body {
+  padding: 16px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rb-steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.rb-steps li {
+  font-size: 12.5px;
+  color: var(--stxt);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.45;
+}
+
+.rb-steps li::before {
+  content: '→';
+  flex-shrink: 0;
+  font-size: 11px;
+  margin-top: 1px;
+  opacity: 0.6;
+}
+
+.rb-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--gray);
+}
+
+.rb-badge {
+  font-size: 10.5px;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.badge-time { background: #EBF5FB; color: #1B6FA8; }
+.badge-level-b { background: #E8F5E9; color: #1B6B1B; }
+.badge-level-i { background: #FFF8E1; color: #8A6000; }
+.badge-tool { background: var(--gray); color: var(--navy); }
+
+.rb-download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 20px 18px;
+  padding: 10px;
+  border-radius: 8px;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.rb-download:hover {
+  opacity: 0.88;
+  transform: scale(0.98);
+}
+
+.rb-card[data-color="blue"]    .rb-download { background: #E8F2FC; color: #0078D4; }
+.rb-card[data-color="teal"]    .rb-download { background: #E5F4F4; color: #025B5E; }
+.rb-card[data-color="teams"]   .rb-download { background: #E6F0FB; color: #106EBE; }
+.rb-card[data-color="purple"]  .rb-download { background: #F0E8FB; color: #5C2D91; }
+.rb-card[data-color="red"]     .rb-download { background: #FBEBEB; color: #A4262C; }
+.rb-card[data-color="green"]   .rb-download { background: #E8F5E8; color: #107C10; }
+
+/* ── SKILLS SECTION ────────────────────────────── */
+.skills-section {
+  background: var(--dark);
+  background-image: radial-gradient(ellipse 60% 80% at 90% 50%, rgba(3,131,135,0.12) 0%, transparent 60%);
+  padding: 60px 40px;
+}
+
+.skills-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.skills-header {
+  margin-bottom: 36px;
+}
+
+.skills-header .eyebrow {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+
+.skills-header h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--white);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.skill-item {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 18px 16px;
+  transition: background 0.2s ease;
+}
+
+.skill-item:hover {
+  background: rgba(255,255,255,0.07);
+}
+
+.skill-icon {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.skill-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.skill-desc {
+  font-size: 12px;
+  color: rgba(174,221,255,0.6);
+  line-height: 1.5;
+}
+
+/* ── CTA ───────────────────────────────────────── */
+.cta-section {
+  background: var(--light);
+  border-top: 1px solid var(--gray);
+  padding: 52px 40px;
+  text-align: center;
+}
+
+.cta-inner {
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.cta-inner h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+
+.cta-inner p {
+  font-size: 14px;
+  color: var(--stxt);
+  margin-bottom: 24px;
+  line-height: 1.65;
+}
+
+.cta-links {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.cta-btn.primary { background: var(--navy); color: var(--white); }
+.cta-btn.secondary { background: var(--white); color: var(--navy); border: 2px solid var(--navy); }
+
+/* ── RESPONSIVE ────────────────────────────────── */
+@media (max-width: 800px) {
+  .about-inner { grid-template-columns: 1fr; }
+  .runbook-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .hero, .about-section, .section-label, .runbook-grid, .skills-section, .cta-section { padding-left: 20px; padding-right: 20px; }
+}
+
+@media (max-width: 520px) {
+  .runbook-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── HERO ──────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-badge">Portfolio Project · M365 Administration</div>
+  <h1>M365 Administration<br><span>Runbook Series</span></h1>
+  <p class="hero-sub">A complete Microsoft 365 tenant built from scratch for a fictional company <strong style="color:#E8A838;">"Magister Operis Systems"</strong> demonstrating real-world admin workflows from user creation to security policy enforcement.</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Runbooks</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">95</div>
+      <div class="stat-label">Slides</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">23</div>
+      <div class="stat-label">Fictional Users</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">M365</div>
+      <div class="stat-label">Platform</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT ──────────────────────────────────────── -->
+<section class="about-section">
+  <div class="about-inner">
+    <div class="about-card">
+      <div class="about-card-icon">🧪</div>
+      <h3>The Lab Setup</h3>
+      <p>To practise M365 administration hands-on, I designed a realistic fictional scenario: <code style="color:#E8A838;">Magister Operis Systems (MOS)</code>, a Berlin company with 23 simulated users across 7 departments. I built their full M365 tenant from scratch, treating it exactly as I would a real client environment.</p>
+    </div>
+    <div class="about-card">
+      <div class="about-card-icon">📋</div>
+      <h3>What a Runbook Is</h3>
+      <p>Each runbook is a step-by-step admin guide with real screenshots from the M365 Admin Center, Entra ID, and Teams, documenting exactly what I did, what errors appeared, and how I resolved them.</p>
+    </div>
+    <div class="about-card">
+      <div class="about-card-icon">🎯</div>
+      <h3>Why I Built This</h3>
+      <p>To demonstrate M365 administration in a structured, professional way, not just knowing the theory, but executing and documenting it as an IT Systems Administrator would on the job.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── RUNBOOKS ───────────────────────────────────── -->
+<div class="section-label">
+  <h2>All 6 Runbooks</h2>
+  <h3>Download & Explore</h3>
+  <p>Each runbook covers a distinct admin workflow. Click a card to download the PDF file.</p>
+</div>
+
+<div class="runbook-grid">
+
+  <!-- 001 -->
+  <div class="rb-card" data-color="blue">
+    <div class="rb-header">
+      <div class="rb-num">Runbook #001</div>
+      <div class="rb-title">Create Users in M365</div>
+      <div class="rb-subtitle">Single user creation and bulk CSV import for 22 staff members</div>
+    </div>
+    <div class="rb-body">
+      <ul class="rb-steps">
+        <li>Create a single user (Chris Vogel) via Admin Center</li>
+        <li>Build and validate a bulk import CSV file</li>
+        <li>Diagnose and fix real CSV import errors</li>
+        <li>Understand Error 530035, auth vs. licencing</li>
+      </ul>
+      <div class="rb-meta">
+        <span class="rb-badge badge-time">⏱ 30 min</span>
+        <span class="rb-badge badge-level-b">🟢 Beginner</span>
+        <span class="rb-badge badge-tool">Admin Center</span>
+      </div>
+    </div>
+    <a class="rb-download" href="https://munyakazi.org/wp-content/uploads/2026/03/MOS-Runbook-001-CreateUsers.pdf" download>
+      ↓ Download PDF
+    </a>
+  </div>
+
+  <!-- 002 -->
+  <div class="rb-card" data-color="teal">
+    <div class="rb-header">
+      <div class="rb-num">Runbook #002</div>
+      <div class="rb-title">Enable MFA</div>
+      <div class="rb-subtitle">Two methods, Security Defaults and Per-User MFA in Entra ID</div>
+    </div>
+    <div class="rb-body">
+      <ul class="rb-steps">
+        <li>Enable Security Defaults in Entra ID Properties</li>
+        <li>Use the legacy Per-User MFA interface</li>
+        <li>Enable MFA for Anfreas Schutz and Claudia Hartmann</li>
+        <li>Understand MFA status: Not enabled / Enabled / Enforced</li>
+      </ul>
+      <div class="rb-meta">
+        <span class="rb-badge badge-time">⏱ 30 min</span>
+        <span class="rb-badge badge-level-b">🟢 Beginner</span>
+        <span class="rb-badge badge-tool">Entra ID</span>
+      </div>
+    </div>
+    <a class="rb-download" href="https://munyakazi.org/wp-content/uploads/2026/03/MOS-Runbook-002-EnableMFA.pdf" download>
+      ↓ Download PDF
+    </a>
+  </div>
+
+  <!-- 003 -->
+  <div class="rb-card" data-color="teams">
+    <div class="rb-header">
+      <div class="rb-num">Runbook #003</div>
+      <div class="rb-title">Teams & SharePoint</div>
+      <div class="rb-subtitle">Create an IT Support Team and configure the auto-provisioned SharePoint site</div>
+    </div>
+    <div class="rb-body">
+      <ul class="rb-steps">
+        <li>Create MOS-IT Support Team via Teams Admin Center</li>
+        <li>Add members and channels (Incidents, Announcements)</li>
+        <li>Understand that Teams auto-creates the SharePoint site</li>
+        <li>Set Site Owner and Member permission levels</li>
+      </ul>
+      <div class="rb-meta">
+        <span class="rb-badge badge-time">⏱ 20 min</span>
+        <span class="rb-badge badge-level-b">🟢 Beginner</span>
+        <span class="rb-badge badge-tool">Teams + SharePoint</span>
+      </div>
+    </div>
+    <a class="rb-download" href="https://munyakazi.org/wp-content/uploads/2026/03/MOS-Runbook-003-TeamsSharePoint.pdf" download>
+      ↓ Download PDF
+    </a>
+  </div>
+
+  <!-- 004 -->
+  <div class="rb-card" data-color="purple">
+    <div class="rb-header">
+      <div class="rb-num">Runbook #004</div>
+      <div class="rb-title">Conditional Access</div>
+      <div class="rb-subtitle">Policy design &amp; documentation, Entra ID P1 not available in this lab</div>
+    </div>
+    <div class="rb-body">
+      <ul class="rb-steps">
+        <li>Policy 1 : Block sign-ins from outside Germany</li>
+        <li>Policy 2 : Require MFA for all admin accounts</li>
+        <li>Policy 3 : Block legacy authentication protocols</li>
+        <li>Documented from Microsoft Learn, not executed in tenant</li>
+      </ul>
+      <div class="rb-meta">
+        <span class="rb-badge badge-time">⏱ 45 min</span>
+        <span class="rb-badge badge-level-i">🟡 Intermediate</span>
+        <span class="rb-badge badge-tool">Entra ID P1 Required</span>
+      </div>
+      <div style="background:#F3EEFF;border:1px solid #C9A8F0;border-radius:6px;padding:8px 12px;font-size:11.5px;color:#5C2D91;line-height:1.5;">
+        <strong>⚠ Lab limitation:</strong> This runbook could not be executed, Conditional Access requires Entra ID P1, which is not included in M365 Business Standard. The runbook documents the intended configuration based on Microsoft documentation.
+      </div>
+    </div>
+    <a class="rb-download" href="https://munyakazi.org/wp-content/uploads/2026/03/MOS-Runbook-004-ConditionalAccess.pdf" download>
+      ↓ Download PDF
+    </a>
+  </div>
+
+  <!-- 005 -->
+  <div class="rb-card" data-color="red">
+    <div class="rb-header">
+      <div class="rb-num">Runbook #005</div>
+      <div class="rb-title">Offboard a User</div>
+      <div class="rb-subtitle">Complete 6-step offboarding workflow for Felix Wagner, safely and correctly</div>
+    </div>
+    <div class="rb-body">
+      <ul class="rb-steps">
+        <li>Block sign-in and revoke active sessions immediately</li>
+        <li>Reset password and remove all group memberships</li>
+        <li>Convert mailbox to shared (preserves email, frees licence)</li>
+        <li>Remove licence, freed for the next new hire</li>
+      </ul>
+      <div class="rb-meta">
+        <span class="rb-badge badge-time">⏱ 20 min</span>
+        <span class="rb-badge badge-level-b">🟢 Beginner</span>
+        <span class="rb-badge badge-tool">Admin Center + Exchange</span>
+      </div>
+    </div>
+    <a class="rb-download" href="https://munyakazi.org/wp-content/uploads/2026/03/MOS-Runbook-005-OffboardUser.pdf" download>
+      ↓ Download PDF
+    </a>
+  </div>
+
+  <!-- 006 -->
+  <div class="rb-card" data-color="green">
+    <div class="rb-header">
+      <div class="rb-num">Runbook #006</div>
+      <div class="rb-title">Configure SSPR</div>
+      <div class="rb-subtitle">Self-Service Password Reset, users reset their own passwords without IT help</div>
+    </div>
+    <div class="rb-body">
+      <ul class="rb-steps">
+        <li>Enable SSPR for all 23 MOS users in Entra ID</li>
+        <li>Require 2 authentication methods (email + phone)</li>
+        <li>Configure registration and notification settings</li>
+        <li>Verify SSPR portal at aka.ms/sspr</li>
+      </ul>
+      <div class="rb-meta">
+        <span class="rb-badge badge-time">⏱ 30 min</span>
+        <span class="rb-badge badge-level-b">🟢 Beginner</span>
+        <span class="rb-badge badge-tool">Entra ID</span>
+      </div>
+    </div>
+    <a class="rb-download" href="https://munyakazi.org/wp-content/uploads/2026/03/MOS-Runbook-006-SSPR.pdf" download>
+      ↓ Download PDF
+    </a>
+  </div>
+
+</div>
+
+<!-- ── SKILLS ─────────────────────────────────────── -->
+<section class="skills-section">
+  <div class="skills-inner">
+    <div class="skills-header">
+      <div class="eyebrow">What This Project Demonstrates</div>
+      <h2>Skills & Competencies</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-item">
+        <div class="skill-icon">👤</div>
+        <div class="skill-name">Identity Management</div>
+        <div class="skill-desc">User lifecycle, create, licence, configure, and offboard accounts at scale</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">🔒</div>
+        <div class="skill-name">Security Administration</div>
+        <div class="skill-desc">MFA, Conditional Access policies, legacy auth blocking, SSPR configuration</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">🤝</div>
+        <div class="skill-name">Collaboration Tools</div>
+        <div class="skill-desc">Microsoft Teams setup, SharePoint site provisioning, permission management</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">📄</div>
+        <div class="skill-name">Technical Documentation</div>
+        <div class="skill-desc">Step-by-step runbooks with real screenshots, error analysis, and lessons learned</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">🛠️</div>
+        <div class="skill-name">Troubleshooting</div>
+        <div class="skill-desc">Diagnosed and resolved real M365 errors, CSV import issues, Error 530035, policy conflicts</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">Admin Centers</div>
+        <div class="skill-desc">M365 Admin, Entra ID, Teams Admin, SharePoint Admin, Exchange Admin Center</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">🗺️</div>
+        <div class="skill-name">Project Planning</div>
+        <div class="skill-desc">Designed a fictional company from scratch with naming conventions, org structure, and user directory</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">🎓</div>
+        <div class="skill-name">Best Practices</div>
+        <div class="skill-desc">Report-only mode, break-glass accounts, shared mailboxes, licence management</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ───────────────────────────────────────── -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Want to See More?</h2>
+    <p>Explore more hands-on infrastructure and networking projects, or reach out directly if you have questions about this M365 portfolio work.</p>
+    <div class="cta-links">
+      <a class="cta-btn primary" href="/system-network-projects/">← All Projects</a>
+      <a class="cta-btn secondary" href="/contact/">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
 
