@@ -251,6 +251,103 @@
 }
 
 /* ── CTA ──────────────────────────────────────────── */
+/* -- PORTFOLIO SOURCE SHOWCASE ------------------------------------------- */
+#ab .ab-source {
+  position: relative;
+  overflow: hidden;
+  background: var(--dark2);
+  padding: 64px 52px;
+  border-top: 1px solid rgba(0,212,255,0.14);
+  border-bottom: 1px solid rgba(0,212,255,0.14);
+}
+#ab .ab-source::after {
+  content: '</>';
+  position: absolute;
+  right: 24px;
+  bottom: -48px;
+  font-family: 'Syne', sans-serif;
+  font-size: 180px;
+  font-weight: 800;
+  color: rgba(0,212,255,0.025);
+  line-height: 1;
+  pointer-events: none;
+}
+#ab .ab-source-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+  gap: 48px;
+  align-items: center;
+}
+#ab .ab-source-ey {
+  margin-bottom: 12px;
+  color: var(--cyan);
+  font-family: 'Syne', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+#ab .ab-source h2 {
+  margin-bottom: 16px;
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 800;
+  line-height: 1.15;
+}
+#ab .ab-source-copy p {
+  max-width: 650px;
+  color: rgba(203,213,225,0.62);
+  font-size: 14px;
+  line-height: 1.8;
+}
+#ab .ab-source-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+#ab .ab-source-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 20px;
+  color: #fff !important;
+  text-decoration: none !important;
+  background: rgba(0,212,255,0.045);
+  border: 1px solid rgba(0,212,255,0.18);
+  border-radius: 4px;
+  transition: transform 0.15s, border-color 0.15s, background 0.15s;
+}
+#ab .ab-source-link:hover {
+  transform: translateY(-2px);
+  background: rgba(0,212,255,0.08);
+  border-color: var(--cyan);
+}
+#ab .ab-source-link-label {
+  display: block;
+  margin-bottom: 3px;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+#ab .ab-source-link-meta {
+  display: block;
+  color: rgba(203,213,225,0.45);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+#ab .ab-source-arrow {
+  flex: 0 0 auto;
+  color: var(--cyan);
+  font-size: 20px;
+}
+
 #ab .ab-cta {
   background: var(--light-bg); border-top: 1px solid #E2E8F0;
   padding: 56px 40px; text-align: center;
@@ -277,10 +374,12 @@
   #ab .ab-tl-step { padding-right: 0; }
   #ab .ab-tl-line { display: none; }
   #ab .ab-sk-grid { grid-template-columns: 1fr 1fr; }
+  #ab .ab-source-inner { grid-template-columns: 1fr; gap: 28px; }
 }
 @media (max-width: 650px) {
   #ab .ab-hero { padding: 52px 20px 48px; flex-direction: column; gap: 28px; }
   #ab .ab-journey, #ab .ab-skills, #ab .ab-exp, #ab .ab-personal { padding-left: 20px; padding-right: 20px; }
+  #ab .ab-source { padding: 44px 20px; }
   #ab .ab-p-div { display: none; }
 }
 #ab {
@@ -563,6 +662,33 @@
   </div>
 </div>
 
+<!-- PORTFOLIO SOURCE SHOWCASE -->
+<div class="ab-source">
+  <div class="ab-source-inner">
+    <div class="ab-source-copy">
+      <div class="ab-source-ey">Beyond My Core Role</div>
+      <h2>Behind This Portfolio</h2>
+      <p>This self-hosted portfolio is also a technical project. I designed selected pages with custom HTML, CSS, and JavaScript inside WordPress and Elementor, then published the source code and standalone demonstrations on GitHub.</p>
+    </div>
+    <div class="ab-source-actions">
+      <a href="https://github.com/JeanClaudeMunyakazi/munyakazi-portfolio-website" class="ab-source-link" target="_blank" rel="noopener noreferrer">
+        <span>
+          <span class="ab-source-link-label">Explore Source Code</span>
+          <span class="ab-source-link-meta">GitHub Repository</span>
+        </span>
+        <span class="ab-source-arrow">&#8594;</span>
+      </a>
+      <a href="https://jeanclaudemunyakazi.github.io/munyakazi-portfolio-website/" class="ab-source-link" target="_blank" rel="noopener noreferrer">
+        <span>
+          <span class="ab-source-link-label">View Page Demos</span>
+          <span class="ab-source-link-meta">GitHub Pages</span>
+        </span>
+        <span class="ab-source-arrow">&#8594;</span>
+      </a>
+    </div>
+  </div>
+</div>
+
 <!-- CTA -->
 <div class="ab-cta">
   <div class="ab-cta-inner">
@@ -576,4 +702,3 @@
 </div>
 
 </div>
-
