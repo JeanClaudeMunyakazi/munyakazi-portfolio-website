@@ -1,3 +1,3 @@
 # About Page 
 
-Source code for the portfolio homepage.
+Source code for the portfolio aboutpage.
